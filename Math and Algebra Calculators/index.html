@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Calculators</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger" onclick="toggleSidebar()">
+    &#9776; <!-- Hamburger icon symbol -->
+  </div>
+
+  <!-- Introductory Picture
+  <div id="intro" class="intro">
+    <img src="https://via.placeholder.com/800x400" alt="Introductory Image">
+  </div> -->
+
+  <div class="wrapper">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+      <h2>Math Calculators</h2>
+      <ul>
+        <li><a href="#" onclick="showCalculator('complexCalculator')">Complex Number Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('percentageCalculator')">Percentage Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('cubeCalculator')">Cube Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('factorCalculator')">Prime Factorization Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('inequalityCalculator')">Inequality Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('flowRateCalculator')">Flow Rate Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('impulseCalculator')">Impulse Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('partialFractionCalculator')">Partial Fraction Decomposer</a></li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="main-content">
+      <h1>Math and Algebra Calculators</h1>
+      <img id="introImage" src="Kisan-Seva.png" alt="Introductory Image">
+    
+      <!-- Complex Number Calculator -->
+      <div id="complexCalculator" class="calculator" style="display: none;">
+        <h2>Complex Number Calculator</h2>
+        <input type="number" id="real1" placeholder="Real part 1">
+        <input type="number" id="imaginary1" placeholder="Imaginary part 1">
+        <input type="number" id="real2" placeholder="Real part 2">
+        <input type="number" id="imaginary2" placeholder="Imaginary part 2">
+        <button onclick="showComplexCalculator()">Calculate</button>
+        <button onclick="clearInput('complexCalculator')">Clear</button>
+    
+        <div id="complexResult"></div>
+        <div id="realPart"></div>
+        <div id="imaginaryPart"></div>
+      </div>
+    
+      <!-- Percentage Calculator -->
+      <div id="percentageCalculator" class="calculator" style="display: none;">
+        <h2>Percentage Calculator</h2>
+        <input type="number" id="originalValue" placeholder="Original Value">
+        <input type="number" id="percentage" placeholder="Percentage">
+        <button onclick="showPercentageCalculator()">Calculate</button>
+        <button onclick="clearInputs('percentageCalculator')">Clear</button>
+        <p id="percentageResult"></p>
+      </div>
+    
+      <!-- Cube Calculator -->
+      <div id="cubeCalculator" class="calculator" style="display: none;">
+        <h2>Cube Calculator</h2>
+        <input type="number" id="cubeInput" placeholder="Enter a number">
+        <button onclick="showCubeCalculator()">Calculate</button>
+        <button onclick="clearInputs('cubeCalculator')">Clear</button>
+        <p id="cubeResult"></p>
+      </div>
+    
+      <!-- Prime Factorization Calculator -->
+      <div id="factorCalculator" class="calculator" style="display: none;">
+        <h2>Prime Factorization Calculator</h2>
+        <input type="number" id="factorInput" placeholder="Enter a number">
+        <button onclick="showFactorCalculator()">Calculate</button>
+        <button onclick="clearInputs('factorCalculator')">Clear</button>
+        <p id="factorResult"></p>
+      </div>
+      <!-- Inequality Calculator -->
+      <div id="inequalityCalculator" class="calculator" style="display: none;">
+        <h2>Inequality Calculator</h2>
+        <input type="text" id="inequalityInput" placeholder="Enter inequality (e.g., x+2>5)">
+        <button onclick="showInequalityCalculator()">Calculate</button>
+        <button onclick="clearInputs('inequalityCalculator')">Clear</button>
+        <p id="inequalityResult"></p>
+      </div>
+
+      <!-- Flow Rate Calculator -->
+      <div id="flowRateCalculator" class="calculator" style="display: none;">
+        <h2>Flow Rate Calculator</h2>
+        <input type="number" id="pipeDiameter" placeholder="Pipe Diameter (m)">
+        <input type="number" id="velocity" placeholder="Velocity (m/s)">
+        <button onclick="showFlowRateCalculator()">Calculate</button>
+        <button onclick="clearInputs('flowRateCalculator')">Clear</button>
+        <p id="flowRateResult"></p>
+      </div>
+
+      <!-- Impulse Calculator -->
+      <div id="impulseCalculator" class="calculator" style="display: none;">
+        <h2>Impulse Calculator</h2>
+        <input type="number" id="force" placeholder="Force (N)">
+        <input type="number" id="time" placeholder="Time (s)">
+        <button onclick="showImpulseCalculator()">Calculate</button>
+        <button onclick="clearInputs('impulseCalculator')">Clear</button>
+        <p id="impulseResult"></p>
+      </div>
+
+      <!-- Partial Fraction Decomposer -->
+      <div id="partialFractionCalculator" class="calculator" style="display: none;">
+        <h2>Partial Fraction Decomposer</h2>
+        <input type="text" id="rationalFunction" placeholder="Enter Rational Function">
+        <button onclick="showPartialFractionCalculator()">Calculate</button>
+        <button onclick="clearInputs('partialFractionCalculator')">Clear</button>
+        <p id="partialFractionResult"></p>
+      </div>
+
+    </div>
+    </div>    
+
+  <script src="script.js"></script>
+</body>
+</html>
