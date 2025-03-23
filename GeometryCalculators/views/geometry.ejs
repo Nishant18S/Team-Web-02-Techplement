@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Calculators</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <header>
+            <h1>Geometry Calculators</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Categories</h3>
+                <ul>
+                    <li>
+                        <span class="expandable">📏 Distance</span>
+                        <ul class="sub-menu">
+                            <li><a href="#" onclick="loadCalculator('2d-distance')">2D Distance</a></li>
+                            <li><a href="#" onclick="loadCalculator('3d-distance')">3D Distance</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="expandable">🔺 Triangle</span>
+                        <ul class="sub-menu">
+                            <li><a href="#" onclick="loadCalculator('equilateral-triangle')">Equilateral</a></li>
+                            <li><a href="#" onclick="loadCalculator('isosceles-triangle')">Isosceles</a></li>
+                            <li><a href="#" onclick="loadCalculator('right-angled-triangle')">Right-Angled</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="expandable">🔳 Quadrilateral</span>
+                        <ul class="sub-menu">
+                            <li><a href="#" onclick="loadCalculator('rectangle')">Rectangle</a></li>
+                            <li><a href="#" onclick="loadCalculator('square')">Square</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="expandable">⚪ Circles & 3D</span>
+                        <ul class="sub-menu">
+                            <li><a href="#" onclick="loadCalculator('circle')">Circle</a></li>
+                            <li><a href="#" onclick="loadCalculator('cylinder')">Cylinder</a></li>
+                            <li><a href="#" onclick="loadCalculator('sphere')">Sphere</a></li>
+                            <li><a href="#" onclick="loadCalculator('cone')">Cone</a></li>
+                            <li><a href="#" onclick="loadCalculator('cube')">Cube</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content" id="calculator-content">
+                <h2>Select a calculator from the sidebar</h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

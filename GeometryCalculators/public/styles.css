@@ -1,0 +1,131 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */ 
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 0px;
+    font-size: 18px;
+} 
+
+/* header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #007bff;
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+} */
+
+
+
+
+/* Content Wrapper */
+.content-wrapper {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #ffffff;
+    padding: 15px;
+    border-right: 2px solid #ddd;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sidebar .expandable {
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+.sidebar .sub-menu {
+    display: none;
+    padding-left: 15px;
+    margin-top: 5px;
+}
+
+.sidebar .sub-menu li {
+    background: #e9ecef;
+    padding: 8px;
+    margin: 3px 0;
+    border-radius: 5px;
+}
+
+.sidebar .sub-menu a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+    }
+}
+
+.sub-menu {
+    display: none; /* Hide sub-menus initially */
+    list-style: none;
+    padding-left: 15px;
+}
+
+.sub-menu.active {
+    display: block; /* Show when active */
+}
+
+.expandable {
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+}
+
