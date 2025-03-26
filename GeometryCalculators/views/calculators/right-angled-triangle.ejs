@@ -1,10 +1,13 @@
 <!-- Right-Angled Triangle Calculator -->
-<div id="right-angled-triangle">
+<div class="calculator-card">
     <h2>Right-Angled Triangle Calculator</h2>
     <form data-type="right-angled-triangle" onsubmit="event.preventDefault(); calculate('right-angled-triangle')">
-        <input type="number" name="base" placeholder="Base">
-        <input type="number" name="height" placeholder="Height">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="base" placeholder="Base">
+            <input type="number" name="height" placeholder="Height">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="right-angled-triangle-result" class="result-text"></div>
     </form>
-    <p id="right-angled-triangle-result"></p>
+    
 </div>

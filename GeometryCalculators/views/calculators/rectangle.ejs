@@ -1,10 +1,14 @@
 <!-- Rectangle Calculator -->
-<div id="rectangle">
+<!-- Rectangle Calculator -->
+<div class="calculator-card">
     <h2>Rectangle Calculator</h2>
     <form data-type="rectangle" onsubmit="event.preventDefault(); calculate('rectangle')">
-        <input type="number" name="length" placeholder="Length">
-        <input type="number" name="width" placeholder="Width">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="length" placeholder="Length">
+            <input type="number" name="width" placeholder="Width">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="rectangle-result" class="result-text"></div>
     </form>
-    <p id="rectangle-result"></p>
+    
 </div>

@@ -1,10 +1,15 @@
+
 <!-- Isosceles Triangle Calculator -->
-<div id="isosceles-triangle">
+<div class="calculator-card">
     <h2>Isosceles Triangle Calculator</h2>
     <form data-type="isosceles-triangle" onsubmit="event.preventDefault(); calculate('isosceles-triangle')">
-        <input type="number" name="base" placeholder="Base">
-        <input type="number" name="side" placeholder="Height">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="base" placeholder="Base">
+            <input type="number" name="side" placeholder="Height">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="isosceles-triangle-result" class="result-text"></div>
     </form>
-    <p id="isosceles-triangle-result"></p>
+    
 </div>
+

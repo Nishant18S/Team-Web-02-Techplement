@@ -1,9 +1,12 @@
 <!-- Sphere Calculator -->
-<div id="sphere">
+<div class="calculator-card">
     <h2>Sphere Calculator</h2>
     <form data-type="sphere" onsubmit="event.preventDefault(); calculate('sphere')">
-        <input type="number" name="radius" placeholder="Radius">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="radius" placeholder="Radius">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="sphere-result" class="result-text"></div>
     </form>
-    <p id="sphere-result"></p>
+    
 </div>

@@ -1,9 +1,12 @@
 <!-- Circle Calculator -->
-<div id="circle">
+<div class="calculator-card">
     <h2>Circle Calculator</h2>
     <form data-type="circle" onsubmit="event.preventDefault(); calculate('circle')">
-        <input type="number" name="radius" placeholder="Radius">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="radius" placeholder="Radius">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="circle-result" class="result-text"></div>
     </form>
-    <p id="circle-result"></p>
+    
 </div>

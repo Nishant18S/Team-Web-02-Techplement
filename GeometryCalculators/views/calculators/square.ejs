@@ -1,9 +1,12 @@
 <!-- Square Calculator -->
-<div id="square">
+<div class="calculator-card">
     <h2>Square Calculator</h2>
     <form data-type="square" onsubmit="event.preventDefault(); calculate('square')">
-        <input type="number" name="side" placeholder="Side">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="side" placeholder="Side">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="square-result" class="result-text"></div>
     </form>
-    <p id="square-result"></p>
+    
 </div>

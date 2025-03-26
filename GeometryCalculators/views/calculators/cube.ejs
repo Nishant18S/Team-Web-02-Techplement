@@ -1,9 +1,11 @@
 <!-- Cube Calculator -->
-<div id="cube">
+<div class="calculator-card">
     <h2>Cube Calculator</h2>
     <form data-type="cube" onsubmit="event.preventDefault(); calculate('cube')">
-        <input type="number" name="side" placeholder="Side">
-        <button type="submit">Calculate</button>
-    </form>
-    <p id="cube-result"></p>
+        <div class="input-group">
+            <input type="number" name="side" placeholder="Side">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="cube-result" class="result-text"></div>
+    </form> 
 </div>

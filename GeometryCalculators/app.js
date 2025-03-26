@@ -1,31 +1,59 @@
 const express = require("express");
-const app = express();
+const session = require("express-session");
+const PgSession = require("connect-pg-simple")(session);
 const path = require("path");
+const bcrypt = require("bcrypt"); // ✅ Added missing bcrypt import
 const geometryRoutes = require("./routes/geometryRoutes");
+const authRoutes = require("./routes/authRoutes");
+const pool = require("./db");
+
+const app = express();
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(express.static("public")); // Ensure CSS/JS can be loaded
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
-// Serve the main Geometry UI
-app.get("/geometry", (req, res) => {
-    res.render("geometry"); // Renders views/geometry.ejs
+// Session Middleware (MUST COME BEFORE ROUTES)
+app.use(
+    session({
+        store: new PgSession({ pool, tableName: "session" }), // Store sessions in DB
+        secret: "your_secret_key",
+        resave: false,
+        saveUninitialized: false,
+        cookie: { secure: false, httpOnly: true, maxAge: 1000 * 60 * 60 }, // 1 hour
+    })
+);
+
+// Authentication Middleware
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        return next();
+    } else {
+        req.session.redirectTo = req.originalUrl; // ✅ Store intended URL before redirecting
+        res.redirect("/login");
+    }
+}
+
+// **Main Dashboard (Homepage)**
+app.get("/", (req, res) => {
+    res.render("dashboard", { user: req.session.user });
 });
 
-// Serve the calculator views (HTML pages)
-app.get("/geometry/view/:type", (req, res) => {
-    const { type } = req.params;
-    res.render(`calculators/${type}`, { type }); // Ensure `views/calculators/${type}.ejs` exists
+// ✅ Added explicit route for `/dashboard`
+app.get("/dashboard", isAuthenticated, (req, res) => {
+    res.render("dashboard", { user: req.session.user });
 });
 
-// Use geometry API routes separately
-app.use("/geometry/api", geometryRoutes);
+// **Authentication Routes**
+app.use("/", authRoutes);
 
-app.get('/', (req, res) => {
-    res.redirect('/geometry'); // Redirect root URL to /geometry
-});
+// **Protected Geometry Routes**
+app.use("/geometry", isAuthenticated, geometryRoutes);
 
-// Start the server
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+
+// **Server Start**
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

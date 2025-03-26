@@ -5,6 +5,16 @@ const geometryController = require('../controllers/geometryController');
 // Route to serve the Geometry UI
 router.get('/', geometryController.renderGeometryPage);
 
+// Route to serve individual calculator pages
+router.get('/view/:type', (req, res) => {
+    const type = req.params.type;
+    console.log("Requested Calculator Type:", type); // Debugging Log
+
+    // Render the corresponding EJS template inside 'views/geometry/'
+    res.render(`calculators/${type}`, { error: null });
+});
+
+
 // API Routes for calculations
 router.get('/2d-distance', geometryController.calculate2DDistance);
 router.get('/3d-distance', geometryController.calculate3DDistance);

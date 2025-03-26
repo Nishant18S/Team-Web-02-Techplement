@@ -1,10 +1,13 @@
 <!-- Cone Calculator -->
-<div id="cone">
+<div class="calculator-card">
     <h2>Cone Calculator</h2>
     <form data-type="cone" onsubmit="event.preventDefault(); calculate('cone')">
-        <input type="number" name="radius" placeholder="Radius">
-        <input type="number" name="height" placeholder="Height">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="radius" placeholder="Radius">
+            <input type="number" name="height" placeholder="Height">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="cone-result" class="result-text"></div>
     </form>
-    <p id="cone-result"></p>
+    
 </div>

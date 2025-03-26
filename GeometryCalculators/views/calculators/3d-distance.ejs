@@ -1,14 +1,20 @@
 <!-- 3D Distance Calculator -->
-<div id="3d-distance">
+<div class="calculator-card">
     <h2>3D Distance Calculator</h2>
     <form data-type="3d-distance" onsubmit="event.preventDefault(); calculate('3d-distance')">
-        <input type="number" name="x1" placeholder="x1">
-        <input type="number" name="y1" placeholder="y1">
-        <input type="number" name="z1" placeholder="z1">
-        <input type="number" name="x2" placeholder="x2">
-        <input type="number" name="y2" placeholder="y2">
-        <input type="number" name="z2" placeholder="z2">
-        <button type="submit">Calculate</button>
+        <div class="input-group">
+            <input type="number" name="x1" placeholder="x1">
+            <input type="number" name="y1" placeholder="y1">
+            <input type="number" name="z1" placeholder="z1">
+        </div>
+        <div class ="input-group">
+            <input type="number" name="x2" placeholder="x2">
+            <input type="number" name="y2" placeholder="y2">
+            <input type="number" name="z2" placeholder="z2">
+        </div>
+        <button type="submit" class="calculate-btn">Calculate</button>
+        <div id="3d-distance-result" class="result-text"></div>
     </form>
-    <p id="3d-distance-result"></p>
+    
 </div>
+
