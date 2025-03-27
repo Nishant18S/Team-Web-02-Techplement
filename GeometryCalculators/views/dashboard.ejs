@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,9 +13,13 @@
         function closePopup(formType) {
             document.getElementById(formType + "-popup").style.display = "none";
         }
+
+        function switchPopup(closeForm, openForm) {
+        document.getElementById(closeForm + "-popup").style.display = "none";
+        document.getElementById(openForm + "-popup").style.display = "block";
+        }
     </script>
     <style>
-        /* Popup styles */
         .popup {
             display: none;
             position: fixed;
@@ -55,27 +59,161 @@
         </nav>
     </header>
 
-    <!-- Login Popup -->
+
     <div id="login-popup" class="popup">
-        <h3>Login</h3>
         <form action="/login" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <button onclick="closePopup('login')">Close</button>
+        <p>Don't have an account? <a href="#" onclick="switchPopup('login', 'register')">Register</a></p>
     </div>
+    
 
-    <!-- Register Popup -->
+    
     <div id="register-popup" class="popup">
-        <h3>Register</h3>
         <form action="/register" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Register</button>
         </form>
-        <button onclick="closePopup('register')">Close</button>
+        <p>Already have an account? <a href="#" onclick="switchPopup('register', 'login')">Login</a></p>
+    </div>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allin1Calculator</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery for AJAX -->
+    <script>
+        function openPopup(formType) {
+            document.getElementById(formType + "-popup").style.display = "block";
+        }
+
+        function closePopup(formType) {
+            document.getElementById(formType + "-popup").style.display = "none";
+        }
+
+        function switchPopup(closeForm, openForm) {
+            document.getElementById(closeForm + "-popup").style.display = "none";
+            document.getElementById(openForm + "-popup").style.display = "block";
+        }
+
+        // Register Form AJAX Submission
+        $(document).ready(function () {
+            $("#register-form").submit(function (event) {
+                event.preventDefault(); // Prevent page reload
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/register",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Registration successful! You can now log in.");
+                            closePopup('register');
+                            openPopup('login'); // Automatically show login popup
+                        } else {
+                            $("#register-error").text(response.error);
+                        }
+                    }
+                });
+            });
+
+            // Login Form AJAX Submission
+            $("#login-form").submit(function (event) {
+                event.preventDefault();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = "/geometry";
+                        } else {
+                            $("#login-error").text(response.error);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .popup input {
+            width: 90%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Allin1Calculator</h1>
+        <nav>
+            <% if (!user) { %>
+                <button onclick="openPopup('login')">Login</button>
+                <button onclick="openPopup('register')">Register</button>
+            <% } else { %>
+                <a href="/logout">Logout</a>
+            <% } %>
+        </nav>
+    </header>
+
+    <!-- Login Popup -->
+    <div id="login-popup" class="popup">
+        <form id="login-form">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p class="error-message" id="login-error"></p>
+        </form>
+        <p>Don't have an account? <a href="#" onclick="switchPopup('login', 'register')">Register</a></p>
+    </div>
+    
+
+    <!-- Register Popup -->
+    <div id="register-popup" class="popup">
+        <form id="register-form">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Register</button>
+            <p class="error-message" id="register-error"></p>
+        </form>
+        <p>Already have an account? <a href="#" onclick="switchPopup('register', 'login')">Login</a></p>
     </div>
 
 </body>
 </html>
+

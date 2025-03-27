@@ -1,10 +1,10 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
+    user: "web02_user", 
+    host: "223.230.44.3",  // Your server's public IP
     database: "allin1calculator_auth",  
-    password: "user",
+    password: "web02_password",  
     port: 5432,
 });
 
