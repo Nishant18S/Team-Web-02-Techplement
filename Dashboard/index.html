@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body,html{
+            width: 100%;
+            height: 100%;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+        nav{
+            display: flex;
+            position: fixed;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            transition: background-color 0.3s ease-in-out;
+            border-bottom: 2px solid white;
+            z-index: 100;
+        }
+        .navLinks{
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        .navLinks a:hover {
+            color: orange;
+            border-bottom: 2px solid orange;
+        }
+        #home{
+            width: 100%;
+            height: 90%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+        #home::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(assets/bgimg4.jpg);
+            background-size: cover;
+            background-position: center;
+            filter: blur(0.3rem);
+            opacity: 100%;
+            z-index: -10;
+        }
+        .headline{
+            width: 40%;
+            height: 50%;
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .img{
+            width: 20%;
+            z-index: 100;
+        }
+        img{
+            mix-blend-mode:multiply;
+            width: 35%;
+        }
+        #categories{
+            width: 100%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 3rem;
+            align-items: flex-start;
+            background-color: aliceblue;
+            z-index: 10;
+        }
+        .grid-container {
+            width: 100%;
+            height: 90%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card{
+            width: 100%;
+            height: 100%;
+            gap: 1rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: orange;
+            border-radius: 5%;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        #about{
+            width: 100%;
+            height: auto;
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        #contact {
+            width: 100%;
+            padding: 4rem 3rem;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            
+        }
+        .contact-content{
+            width: 50%;
+        }
+        .contact-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .contact-content p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label{
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: orange;
+        }
+
+        .btn {
+            padding: 1rem;
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff7f00;
+        }
+        .explore{
+            width: 25%;
+            padding: 1rem;
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+        .explore:hover{
+            color: black;
+            background-color: transparent;
+            border: 1px solid orange;
+        }
+        .profile{
+            width: 2rem;
+            height: 2rem;
+            background-color: #828282;
+            color: white;
+            border-radius: 50%;
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .overlay{
+            width: 100%;
+            height: 400%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.482);
+            z-index: 200;
+            display: none;
+        }
+        .menu{
+            width: 30vw;
+            height: 40vh;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: beige;
+            z-index: 300;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 1rem;
+            display: none;
+        }
+        .menu .btns{
+            display: flex;
+            gap: 1rem;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h1>AllinOneCalci</h1>
+        </div>
+        <div class="navLinks">
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact Us</a>
+            <div class="profile">
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+    <div class="menu">
+        <div class="heading">
+            <h4>Haven't created an account yet? Let's make it</h4>
+        </div>
+        <form action="">
+            <div class="inputs">
+                <input type="email" placeholder="Enter your Email">
+                <input type="password" placeholder="Enter your password">
+            </div>
+            <div class="btns">
+                <button class="btn">Sign in</button>
+                <button class="btn">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <section id="home">
+        <div class="headline">
+            <h2>Calculate Anything, Anytime, Anywhere!</h2>
+            <p>Whether you're crunching numbers for work, tracking your health, or solving math problems, our all-in-one calculator is here to help. Easy, fast, and reliable!</p>
+            <a href="#categories"><button class="explore">Explore</button></a>
+        </div>
+        <img src="assets/Home.jpg" alt="">
+    </section>
+    <section id="categories">
+        <div class="heading">
+            <h2>Categories:</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Financial Calculator</h3>
+                <p>Manage your finances effectively with tools like loan, EMI, and interest calculators.</p>
+            </div>
+            <div class="card">
+                <h3>Health and Fitness Calculator</h3>
+                <p>Track your fitness goals with BMI, calorie, and heart rate calculators.</p>
+            </div>
+            <div class="card">
+                <h3>Conversion Calculator</h3>
+                <p>Convert units easily: length, weight, volume, and more.</p>
+            </div>
+            <div class="card">
+                <h3>Geometry Calculator</h3>
+                <p>Calculate area, perimeter, and other geometric properties.</p>
+            </div>
+            <div class="card">
+                <h3>Math and Algebra Calculator</h3>
+                <p>Simplify algebraic expressions, solve equations, and perform advanced calculations.</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="about">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>At <strong>AllinOneCalci</strong>, we aim to simplify your life by providing a range of calculators tailored for your everyday needs. Whether you're managing your finances, tracking fitness goals, or solving complex math problems, we've got you covered.</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <h3>Our Mission</h3>
+                    <p>To offer quick, reliable, and easy-to-use calculators for a variety of practical purposes.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>What We Offer</h3>
+                    <p>From financial tools to health trackers, our calculators are designed to provide accurate results at your fingertips.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Why Choose Us?</h3>
+                    <p>Our platform is user-friendly, responsive, and constantly updated to ensure the best experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact">
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <p>"We’d Love to Hear from You"</p>
+    
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" placeholder="Write your message" rows="5" required></textarea>
+                </div>
+    
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+    
+        </div>
+    </section>
+    <script>
+        let registered=false
+        let defaultUser="User"
+        let userName=""
+        // registered=true
+
+        const nav=document.querySelector('nav')
+        const overlay=document.querySelector('.overlay')
+        const menu=document.querySelector('.menu')
+        const profile=document.querySelector('.profile')
+        const cards=document.querySelectorAll('.grid-container')
+
+        window.addEventListener("scroll",()=>{
+            const opacity = Math.min(1, window.scrollY / 200);
+            nav.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+        })
+        
+
+        if(registered){
+            userName="Ashutosh"
+            profile.innerHTML=userName.slice(0,1)
+            profile.style.backgroundColor=`rgb(${Math.floor(256 * Math.random())}, ${Math.floor(256 * Math.random())}, ${Math.floor(256 * Math.random())})`;
+
+            cards.forEach((card)=>{
+                card.addEventListener('click',()=>{
+                    window.location.href="finCalci.html"
+                })
+            })
+        }
+        else{
+            profile.addEventListener('click',()=>{
+                overlay.style.display="flex"
+                menu.style.display="flex"
+            })
+            overlay.addEventListener('click',()=>{
+                overlay.style.display="none"
+                menu.style.display="none"
+            })
+            profile.innerHTML=defaultUser.slice(0,1)
+
+            cards.forEach((card)=>{
+                card.addEventListener('click',()=>{
+                    overlay.style.display="flex"
+                    menu.style.display="flex"
+                })
+            })
+        }
+    </script>
+</body>
+</html>
