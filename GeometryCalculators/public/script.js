@@ -91,30 +91,34 @@ async function calculate(type) {
 // Register Form Username & Password Validation
 
 document.addEventListener("DOMContentLoaded", () => {
+
     document.getElementById("register-form")?.addEventListener("submit", function (event) {
+
         const username = document.querySelector("input[name='username']").value;
         const password = document.querySelector("input[name='password']").value;
         const errorDiv = document.getElementById("register-error");
 
-        // Username Regex: 3-20 characters, only letters, numbers, underscores (_), and dots (.)
-        const usernameRegex = /^[a-zA-Z0-9](?!.*[_.@]{2})[a-zA-Z0-9._@]{1,18}[a-zA-Z0-9]$/;
-
-        // Strong Password Regex: At least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special char
+        const usernameRegex = /^[a-zA-Z0-9_.@]{3,20}$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        errorDiv.textContent = ""; 
 
         let errorMessage = "";
 
         if (!usernameRegex.test(username)) {
-            errorMessage = "Username must be 3-20 characters, can contain letters, numbers, _ and ., but no spaces or special symbols.";
+            errorMessage = "❌ Username must be 3-20 characters, can contain letters, numbers, _ . and @ but no spaces.";
+            console.log("⚠️ Username Validation Failed:", username);
         } else if (!passwordRegex.test(password)) {
-            errorMessage = "Password must be at least 8 characters, include an uppercase, lowercase, number, and special character.";
+            errorMessage = "❌ Password must be at least 8 characters, include uppercase, lowercase, number, and special character.";
+            console.log("⚠️ Password Validation Failed:", password);
         }
 
         if (errorMessage) {
             event.preventDefault(); // Stop form submission
             errorDiv.textContent = errorMessage;
             errorDiv.style.color = "red";
+        } else {
+            console.log("✅ Validation Passed - Form Submitting...");
         }
     });
 });
-
