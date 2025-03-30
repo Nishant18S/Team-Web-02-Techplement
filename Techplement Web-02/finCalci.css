@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body,html{
+    width: 100%;
+    height: 200vh;
+    background-color: rgb(63, 63, 63);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.heading{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    color: white;
+}
+.container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(25rem,1fr));
+    place-items: center;
+}
+.cards{
+    width: 80%;
+    height: 80%;
+    padding: 1rem;
+    background-color: rgb(188, 188, 188);
+    border: 1px solid white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: large;
+    color: rgb(63, 63, 63);
+}
+img{
+    height: 70%;
+}
+.cards:hover{
+    cursor:pointer;
+    box-shadow: 5px 5px rgb(165, 165, 165);
+}
+.overlay{
+    background-color: rgba(255, 255, 255, 0.233);
+    backdrop-filter: blur(1rem);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.menu{
+    width: 90%;
+    height: 90%;
+    background-color: rgb(246, 247, 210);
+    z-index: 10;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.query{
+    width: 50%;
+    height: 90%;
+    padding: 1rem;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: large;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.inputs>div{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+select{
+    width: 60%;
+}
+.calculateBtn{
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+button{
+    width: 5rem;
+    height: 2rem;
+    color: white;
+    background-color: rgb(82, 82, 229);
+    cursor: pointer;
+    border: none;
+}
+button:hover{
+    color: rgb(82, 82, 229);
+    background-color: white;
+    border: 1px solid rgb(82, 82, 229);
+
+}
+.result{
+    width: 45%;
+    height: 90%;
+    padding-top: 2rem;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+.resHead{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(216, 175, 255);
+}
+.result .resContent{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgb(182, 253, 182);
+}
+.result .resContent div{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+input{
+    width: 20rem;
+    height: 2rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 1rem;
+}

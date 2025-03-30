@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+}
+
+.section {
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid black;
+  position: sticky;
+  padding: 10px 10px;
+  top: 0;
+  background-color: white;
+}
+
+.nav-list {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-list-item {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+.nav-list-item:hover {
+  transition: 0.5s;
+  color: white;
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.BMI, .BMR, .Calorie, .fat, .ideal {
+  width: 100%;
+  box-shadow: 1px 1px 10px rgba(29, 29, 29, 0.205);
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.header {
+  font-size: 17px;
+  text-align: center;
+}
+
+.header-card {
+  border: 1px solid lightgray;
+  padding: 10px 20px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.255);
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 40%;
+  padding: 10px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inpt {
+  padding: 5px 10px;
+  border: 1px solid black;
+}
+
+.label {
+  font-size: 15px;
+}
+
+.btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+}
+
+.btn:hover {
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#res-card {
+  width: 40%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.underweight {
+  background-color: rgba(255, 255, 0, 0.204);
+  border: 2px solid yellow;
+}
+
+.overweight {
+  background-color: rgba(255, 166, 0, 0.205);
+  border: 2px solid orange;
+}
+
+.normal {
+  background-color: rgba(0, 128, 0, 0.205);
+  border: 2px solid green;
+}
+
+.obese {
+  background-color: rgba(255, 0, 0, 0.207);
+  border: 2px solid red;
+}
+
+.img {
+  width: 260px;
+  object-fit: cover;
+}
+
+.bmr-res-card, .calorie-res-card, .fat-res-card, .ideal-res-card {
+  width: 40%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(32, 31, 31, 0.363);
+}
+
+.hide {
+  display: none;
+}
+.show{
+  display: block;
+}
+.notification{
+  position: absolute;
+  top : 10px;
+  right: 20px;
+  border: 1px solid red;
+  padding: 10px 20px;
+  background-color: rgba(238, 55, 55, 0.204);
+  border-radius: 10px;
+  transition: 1s;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.card{
+  width: 300px;
+  box-shadow: 2px 2px 10px rgba(32, 31, 31, 0.363);
+  height: 250px;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.card:hover{
+  box-shadow: 2px 2px 20px rgba(32, 31, 31, 0.363);
+}
+.card-list{
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 25px;
+}
+
+
+/* Responsive Design - Media Queries */
+
+@media (max-width: 1024px) {
+  .form {
+    width: 60%;
+  }
+
+  .nav-list {
+    gap: 5px;
+  }
+
+  .nav-list-item {
+    padding: 5px 10px;
+  }
+
+  .section {
+    padding: 0 15px;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  #res-card,  .bmr-res-card, .calorie-res-card, .fat-res-card, .ideal-res-card  {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+
+  .img {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form {
+    width: 80%;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-list-item {
+    padding: 6px 12px;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  #res-card,  .bmr-res-card, .calorie-res-card, .fat-res-card, .ideal-res-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    width: 90%;
+  }
+
+  .nav-list {
+    gap: 10px;
+  }
+
+  .nav-list-item {
+    padding: 8px 16px;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section {
+    width: 100%;
+    padding: 0 5px;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 180px;
+  }
+
+  .header {
+    font-size: 16px;
+  }
+  .notification {
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+  }
+  #res-card,  .bmr-res-card, .calorie-res-card, .fat-res-card, .ideal-res-card {
+    width: 100%;
+  }
+}
+/* General card styles */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card:active {
+  transform: translateY(2px);
+}
+
+.card p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Image styling */
+.card-img {
+  width: 60px; /* Adjust width */
+  height: 60px; /* Adjust height */
+  object-fit: cover;
+  border-radius: 50%; /* Optional: creates circular image */
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+/* Card list styles */
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .card-img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  
+  <div class="section">
+
+    <div class="notification hide " id="notify">
+      Please enter valid inputs
+  </div>
+    <div class="nav" id="nav">
+      <div class="logo">
+        <h1>Health and Fitness Calculators</h1>
+      </div>
+      <div class="nav-list" id="nav-list">
+        <a class="nav-list-item" href="#" onclick="goToHome()">Home</a>
+      </div>
+    </div>
+    <br>
+    <div class="parent" id="parent">
+      <div class="card-list" id="card-list">
+        <div class="card" onclick="showSection('bmi')">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnq3A2WGn9780h3COia7RgTt-MhlCqhAi6bA&s" alt="BMI Calculator" class="card-img" />
+          <p>BMI Calculator</p>
+        </div>
+        <div class="card" onclick="showSection('bmr')">
+          <img src="https://calculatorstime.com/wp-content/uploads/2024/01/BMR-calculator.jpg" alt="BMR Calculator" class="card-img" />
+          <p>BMR Calculator</p>
+        </div>
+        <div class="card" onclick="showSection('calorie')">
+          <img src="https://media.istockphoto.com/id/914932994/vector/calculator-with-apple-and-measuring-tape.jpg?s=612x612&w=0&k=20&c=_dsEPPnTfQaqUszLzgwpKSSQ9x0-L2I9Ukc-5dR0U7Q=" alt="Calorie Calculator" class="card-img" />
+          <p>Calorie Calculator</p>
+        </div>
+        <div class="card" onclick="showSection('fat')">
+          <img src="https://play-lh.googleusercontent.com/IYUylEoNBU2VQ889BxBvFa-UubT6iNs3xksBrEag6eqTNNJlysl0KKaQ3NhVh8xaAd8=w526-h296-rw" alt="Body Fat Calculator" class="card-img" />
+          <p>Body Fat Calculator</p>
+        </div>
+        <div class="card" onclick="showSection('ideal')">
+          <img src="https://images.drlogy.com/assets/uploads/img/admin/calci/ideal-weight-calculator.webp" alt="Ideal Weight Calculator" class="card-img" />
+          <p>Ideal Weight Calculator</p>
+        </div>
+      </div>
+    </div>
+    
+    
+ 
+    
+    <div class="body-content" id="body-content">
+      <div class="BMI" id="bmi" style="display: none;">
+        <div class="header-card">
+          <h1 class="header">Calculate Your BMI</h1>
+        </div>
+        <div class="content">
+          <div class="form">
+            <div class="input">
+              <label class="label" for="">Enter Weight in Kg</label>
+              <input class="inpt" id="bmi-weight" type="text">
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter height in cm</label>
+              <input class="inpt" id="bmi-height" type="text">
+            </div>
+            <div class="input">
+              <button type="button" class="btn" onclick="calculatebmi()">Calculate BMI</button>
+            </div>
+          </div>
+          <div id="res-card"></div>
+        </div>
+      </div>
+
+      <div class="BMR" id="bmr" style="display: none;">
+        <div class="header-card">
+          <h1 class="header">Calculate Your BMR</h1>
+        </div>
+        <div class="content">
+          <div class="form">
+            <div class="input">
+              <label class="label" for="">Age</label>
+              <input class="inpt" id="bmr-age" type="text">
+            </div>
+            <div>
+              <input type="radio" id="male" name="gender" value="Male">
+              <label for="male">Male</label><br>
+              <input type="radio" id="female" name="gender" value="Female">
+              <label for="female">Female</label><br>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter Weight in Kg</label>
+              <input class="inpt" id="bmr-weight" type="text">
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter height in cm</label>
+              <input class="inpt" id="bmr-height" type="text" required>
+            </div>
+            <div class="input">
+              <button type="button" class="btn" onclick="calculatebmr()">Calculate BMR</button>
+            </div>
+          </div>
+          <div id="bmr-res-card"></div>
+        </div>
+      </div>
+
+      <div class="Calorie" id="calorie" style="display: none;">
+        <div class="header-card">
+          <h1 class="header">Calorie Calculator</h1>
+        </div>
+        <div class="content">
+          <div class="form">
+            <div class="input">
+              <label class="label" for="">Age</label>
+              <input class="inpt" id="calorie-age" type="text">
+            </div>
+            <div>
+              <input type="radio" id="calorie-male" name="gender" value="Male">
+              <label for="male">Male</label><br>
+              <input type="radio" id="calorie-female" name="gender" value="Female">
+              <label for="female">Female</label><br>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter Weight in Kg</label>
+              <input class="inpt" id="calorie-weight" type="text">
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter height in cm</label>
+              <input class="inpt" id="calorie-height" type="text" required>
+            </div>
+            <div>
+              <label class="label" for="activity">Activity Level:</label>
+              <select class="inpt" id="activity">
+                <option value="1.2">little or no exercise</option>
+                <option value="1.375">light exercise/sports 1-3 days/week</option>
+                <option value="1.55">moderate exercise/sports 3-5 days/week</option>
+                <option value="1.725">hard exercise/sports 6-7 days a week</option>
+                <option value="1.9">very hard exercise/sports and a physical job</option>
+              </select>
+            </div>
+            <div class="input">
+              <button type="button" class="btn" onclick="calculatecalorie()">Calculate calorie</button>
+            </div>
+          </div>
+          <div id="calorie-res-card"></div>
+        </div>
+      </div>
+
+      <div class="fat" id="fat" style="display: none;">
+        <div class="header-card">
+          <h1 class="header">Body Fat Calculator</h1>
+        </div>
+        <div class="content">
+          <div class="form">
+            <div>
+              <input type="radio" id="fat-male" name="gender" value="Male">
+              <label for="male">Male</label><br>
+              <input type="radio" id="fat-female" name="gender" value="Female">
+              <label for="female">Female</label><br>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter Weight in Kg</label>
+              <input class="inpt" id="fat-weight" type="text">
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter height in cm</label>
+              <input class="inpt" id="fat-height" type="text" required>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter neck circumference in cm</label>
+              <input class="inpt" id="fat-neck" type="text" required>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter waist circumference in cm</label>
+              <input class="inpt" id="fat-waist" type="text" required>
+            </div>
+            <div class="input" id="hip">
+              <label class="label" for="">Enter hip circumference in cm (only for female)</label>
+              <input class="inpt" id="fat-hip" type="text" required>
+            </div>
+            <div class="input">
+              <button type="button" class="btn" onclick="calculatefat()">Calculate Body Fat</button>
+            </div>
+          </div>
+          <div id="fat-res-card"></div>
+        </div>
+      </div>
+
+      <div class="ideal" id="ideal" style="display: none;">
+        <div class="header-card">
+          <h1 class="header">Ideal Weight Calculator</h1>
+        </div>
+        <div class="content">
+          <div class="form">
+            <div>
+              <input type="radio" id="ideal-male" name="gender" value="Male">
+              <label for="male">Male</label><br>
+              <input type="radio" id="ideal-female" name="gender" value="Female">
+              <label for="female">Female</label><br>
+            </div>
+            <div class="input">
+              <label class="label" for="">Enter height in cm</label>
+              <input class="inpt" id="ideal-height" type="text" required>
+            </div>
+            <div class="input">
+              <button type="button" class="btn" onclick="calculateIdealWeight()">Calculate Ideal weight</button>
+            </div>
+          </div>
+          <div id="ideal-res-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    let parent = document.getElementById("parent");
+let bodycontent = document.getElementById("body-content");
+function showSection(section) {
+  
+  const sections = document.querySelectorAll(".body-content > div");
+  
+  sections.forEach(function (el) {
+    el.style.display = "none";
+  });
+  const selectedSection = document.getElementById(section);
+  if (selectedSection) {
+    selectedSection.style.display = "block";
+  parent.classList.add("hide");
+  bodycontent.classList.remove("hide");
+  }
+  
+}
+let notification = document.getElementById("notify");
+let nav = document.getElementById("nav-list");
+const validateInput = (input) => {
+  return !isNaN(input) && input > 0;
+};
+function goToHome() {
+  parent.classList.remove("hide");
+  bodycontent.classList.add("hide");
+}
+let bmiweight = document.querySelector("#bmi-weight");
+let bmiheight = document.querySelector("#bmi-height");
+let rescard = document.querySelector("#res-card");
+const calculatebmi = () => {
+  let weight = bmiweight.value;
+  let height = bmiheight.value / 100;
+  if (!validateInput(weight) || !validateInput(height)) {
+    notification.classList.remove("hide");
+    nav.classList.add("hide");
+    setTimeout(() => {
+      notification.classList.add("hide");
+      nav.classList.remove("hide");
+    }, 2000);
+    return;
+  }
+  let res = (weight / (height * height)).toFixed(2);
+  rescard.innerHTML = "";
+  rescard.classList = "";
+  if (res < 18.5) {
+    displayCard(res, "underweight");
+  } else if (res >= 18.5 && res <= 24.9) {
+    displayCard(res, "normal");
+  } else if (res >= 25 && res <= 29.9) {
+    displayCard(res, "overweight");
+  } else {
+    displayCard(res, "obese");
+  }
+  bmiweight.value = "";
+  bmiheight.value = "";
+};
+const displayCard = (res, classname) => {
+  rescard.innerHTML = `Your BMI is ${res} and you are ${classname}`;
+  rescard.classList.add(classname);
+  setTimeout(() => {
+    rescard.innerHTML = ``;
+    rescard.classList.remove(classname);
+    rescard.appendChild(bmiimg);
+  }, 5000);
+};
+
+let bmrmale = document.querySelector("#male");
+let bmrfemale = document.querySelector("#female");
+let bmrweight = document.querySelector("#bmr-weight");
+let bmrheight = document.querySelector("#bmr-height");
+let bmrrescard = document.querySelector("#bmr-res-card");
+let bmrage = document.querySelector("#bmr-age");
+
+function calculatebmr() {
+  let gender = "";
+  if (bmrmale.checked) {
+    gender = "Male";
+  } else if (bmrfemale.checked) {
+    gender = "Female";
+  }
+  let weight = parseFloat(bmrweight.value);
+  let height = parseFloat(bmrheight.value);
+  let age = parseInt(bmrage.value);
+  if (
+    !validateInput(weight) ||
+    !validateInput(height) ||
+    !validateInput(age) ||
+    !gender
+  ) {
+    notification.classList.remove("hide");
+    nav.classList.add("hide");
+    setTimeout(() => {
+      notification.classList.add("hide");
+      nav.classList.remove("hide");
+    }, 2000);
+    return;
+  }
+  let bmr;
+  if (gender === "Male") {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else if (gender === "Female") {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+  bmrrescard.classList.add("bmr-res-card");
+  bmrrescard.innerHTML = `Your BMR is: <b>${bmr.toFixed(2)}</b>  calories/day`;
+  bmrmale.checked = false;
+  bmrfemale.checked = false;
+  bmrweight.value = "";
+  bmrheight.value = "";
+  bmrage.value = "";
+
+  setTimeout(() => {
+    bmrrescard.innerHTML = "";
+    bmrrescard.classList.remove("bmr-res-card");
+  }, 5000);
+}
+
+function calculatecalorie() {
+  let age = parseInt(document.getElementById("calorie-age").value);
+  let weight = parseFloat(document.getElementById("calorie-weight").value);
+  let height = parseInt(document.getElementById("calorie-height").value);
+  let caloriemale = document.getElementById("calorie-male").value;
+  let caloriefemale = document.getElementById("calorie-female").value;
+  let activity = parseFloat(document.getElementById("activity").value);
+  let res = document.getElementById("calorie-res-card");
+  let gender = "";
+  if (caloriemale.checked) {
+    gender = "Male";
+  } else if (caloriefemale.checked) {
+    gender = "Female";
+  }
+  if (
+    !validateInput(age) ||
+    !validateInput(weight) ||
+    !validateInput(height) ||
+    !activity ||
+    !gender
+  ) {
+    notification.classList.remove("hide");
+    nav.classList.add("hide");
+    setTimeout(() => {
+      notification.classList.add("hide");
+      nav.classList.remove("hide");
+    }, 2000);
+    return;
+  }
+  let bmr;
+  if (gender === "male") {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+  let tdee = bmr * activity;
+  res.classList.add("calorie-res-card");
+  res.innerHTML = `<div>You need approximately <b>${Math.round(
+    tdee
+  )}</b> calories per day to maintain your weight.</div>`;
+  document.getElementById("calorie-age").value = "";
+  document.getElementById("calorie-weight").value = "";
+  document.getElementById("calorie-height").value = "";
+  document.getElementById("activity").value = "";
+  caloriemale.checked = false;
+  caloriefemale.checked = false;
+  setTimeout(() => {
+    res.innerHTML = "";
+    res.classList.remove("calorie-res-card");
+  }, 5000);
+}
+
+let fatFemale = document.getElementById("fat-female");
+let fatmale = document.getElementById("fat-male");
+let hipele = document.getElementById("hip");
+
+function toggleHip() {
+  if (fatmale.checked) {
+    hipele.classList.add("hide");
+  } else if (fatFemale.checked) {
+    hipele.classList.remove("hide");
+  }
+}
+
+fatFemale.addEventListener("change", toggleHip);
+fatmale.addEventListener("change", toggleHip);
+toggleHip();
+
+function calculatefat() {
+  let gender = "";
+  if (fatmale.checked) {
+    gender = "male";
+  } else if (fatFemale.checked) {
+    gender = "female";
+  }
+  const height = parseFloat(document.getElementById("fat-height").value);
+  const waist = parseFloat(document.getElementById("fat-waist").value);
+  const neck = parseFloat(document.getElementById("fat-neck").value);
+  let res = document.getElementById("fat-res-card");
+  const hip =
+    gender === "female"
+      ? parseFloat(document.getElementById("fat-hip").value)
+      : 0;
+  if (
+    !validateInput(height) ||
+    !validateInput(waist) ||
+    !validateInput(neck) ||
+    !gender
+  ) {
+    notification.classList.remove("hide");
+    nav.classList.add("hide");
+    setTimeout(() => {
+      notification.classList.add("hide");
+      nav.classList.remove("hide");
+    }, 2000);
+    return;
+  }
+  let bodyFatPercentage;
+  if (gender === "male") {
+    bodyFatPercentage =
+      86.01 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+  }
+  if (gender === "female") {
+    bodyFatPercentage =
+      163.205 * Math.log10(waist + hip - neck) -
+      97.684 * Math.log10(height) -
+      78.387;
+  }
+  res.classList.add("fat-res-card");
+  res.innerHTML = `<div>You body fat <b>${Math.round(
+    bodyFatPercentage
+  )}</b>% </div>`;
+  document.getElementById("fat-weight").value = "";
+  document.getElementById("fat-height").value = "";
+  document.getElementById("fat-neck").value = "";
+  document.getElementById("fat-waist").value = "";
+  document.getElementById("fat-hip").value = "";
+  fatmale.checked = false;
+  fatFemale.checked = false;
+  setTimeout(() => {
+    res.innerHTML = "";
+    res.classList.remove("fat-res-card");
+  }, 5000);
+}
+
+function calculateIdealWeight() {
+  const height = parseFloat(document.getElementById("ideal-height").value);
+  let idealFemale = document.getElementById("ideal-female");
+  let idealmale = document.getElementById("ideal-male");
+  let res = document.getElementById("ideal-res-card");
+  let idealWeight;
+  if (!validateInput(height) || (!idealmale.checked && !idealFemale.checked)) {
+    notification.classList.remove("hide");
+    nav.classList.add("hide");
+    setTimeout(() => {
+      notification.classList.add("hide");
+      nav.classList.remove("hide");
+    }, 2000);
+    return;
+  }
+  if (idealmale.checked) {
+    idealWeight = 50 + 0.91 * (height - 152.4);
+  } else if (idealFemale.checked) {
+    idealWeight = 45.5 + 0.91 * (height - 152.4);
+  }
+  res.classList.add("ideal-res-card");
+  res.innerHTML = `<div>You Ideal weight <b>${Math.round(
+    idealWeight
+  )}</b>Kg </div>`;
+  document.getElementById("ideal-height").value = "";
+
+  idealmale.checked = false;
+  idealFemale.checked = false;
+  setTimeout(() => {
+    res.innerHTML = "";
+    res.classList.remove("ideal-res-card");
+  }, 5000);
+}
+
+  </script>
+
+  
+</body>
+
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math and Algebra Calculators</title>
+  <link rel="icon" href="cal.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General Reset */
+.try {
+    width: 100%; /* Make the underline span the entire width of the parent */
+    border-bottom: 3px solid #1574d4; /* Underline color and thickness */
+    margin-top: 10px; /* Adjust the space between the heading and the underline */
+}
+.trys {
+    width: 100%;
+    border: 3px solid #1574d4;
+    margin-bottom: 10px;
+    position: relative;
+    animation: borderAnimation 2s infinite alternate;
+}
+
+@keyframes borderAnimation {
+    0% {
+        border-color: #1574d4;
+        transform: scale(1);
+    }
+    50% {
+        border-color: #ff6347; /* Change to any color you want */
+        transform: scale(1.1);
+    }
+    100% {
+        border-color: #1574d4;
+        transform: scale(1);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Introductory Image */
+.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3498db;
+}
+
+#introImage {
+    height: auto;
+    width: 100%;
+    max-width: 1180px; /* Maintain the max width you originally specified */
+    border-radius: 10px;
+    transition: opacity 1s ease-in-out;
+}
+
+
+/* Wrapper for Sidebar and Main Content */
+.wrapper {
+    display: flex;
+    width: 100%;
+    transition: margin-left 0.3s ease;
+}
+
+/* Sidebar Styling (Always visible on larger screens) */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: block; /* Visible by default */
+    transition: left 0.5s ease, border-color 0.5s ease;
+    border-right: 2px solid transparent; /* Start with invisible border */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Underline for links or elements inside sidebar */
+.sidebar a {
+    color: white; /* Ensure text color stays white */
+    text-decoration: underline; /* Underline links */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.sidebar a:hover {
+    color: #3498db; /* Optional: change color when hovering over link */
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: #34495e;
+}
+
+.sidebar h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 270px;
+    padding: 30px;
+    width: calc(100% - 270px);
+    background-color: #ecf0f1;
+    transition: margin-left 0.5s ease;
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Hamburger Icon (Visible only on small screens) */
+.hamburger {
+    font-size: 2.5rem;
+    /* color: #2c3e50; */
+    padding: 10px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
+
+@media screen and (max-width: 768px) {
+    /* Sidebar for smaller screens */
+    .sidebar {
+        position: absolute;
+        width: 250px;
+        top: 0;
+        left: -250px; /* Initially hidden */
+        height: 100vh;
+        background-color: #2c3e50;
+        padding: 20px;
+        z-index: 100;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Hamburger icon on small screens */
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 2000;
+    }
+
+    /* Sidebar open behavior */
+    .sidebar.open {
+        left: 0; /* When 'open' class is added, sidebar slides in */
+        border-right: 2px solid #2980b9; /* Border appears */
+    }
+
+    .wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Calculator Section Styling */
+.calculator {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    
+    animation: fadeInScaleUp 0.6s ease-out;
+}
+
+@keyframes fadeInScaleUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.calculator h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:active {
+    background-color: #1f6fa6;
+}
+
+p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+/* Hamburger Icon Animation */
+.hamburger:hover {
+    /* background-color: #34495e; */
+    color: #d50d0d;
+    transform: rotate(90deg);
+    transition: all 0.3s ease;
+}
+
+#complexResult, #realPart, #imaginaryPart {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+#complexResult {
+    font-size: 20px;
+    color: #007BFF;
+}
+
+#realPart {
+    font-size: 18px;
+    color: #28a745;
+}
+
+#imaginaryPart {
+    font-size: 18px;
+    color: #dc3545;
+}
+
+.calculator input {
+    padding: 8px;
+    margin: 5px;
+    width: 200px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.calculator button {
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.calculator button:hover {
+    background-color: #0056b3;
+}
+  </style>
+</head>
+<body>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger" onclick="toggleSidebar()">
+    &#9776; <!-- Hamburger icon symbol -->
+  </div>
+
+  <!-- Introductory Picture
+  <div id="intro" class="intro">
+    <img src="https://via.placeholder.com/800x400" alt="Introductory Image">
+  </div> -->
+
+  <div class="wrapper">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+      <h2><a href="#" onclick="window.location.reload();" style="text-decoration: none;">Math Calculators</a></h2>
+      <div class="try"></div>
+      <ul>
+        <li><a href="#" onclick="showCalculator('complexCalculator')">Complex Number Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('booleanSimplifier')">Boolean Algebra Simplifier</a></li>
+        <li><a href="#" onclick="showCalculator('partialFractionCalculator')">Partial Fraction Decomposer</a></li>
+        <li><a href="#" onclick="showCalculator('inequalityCalculator')">Inequality Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('flowRateCalculator')">Flow Rate Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('impulseCalculator')">Impulse Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('factorizationCalculator')">Factorization Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('percentageCalculator')">Percentage Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('exponentialCalculator')">Exponential Formulas Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('cubeCalculator')">Cube Calculator</a></li>
+        <li><a href="#" onclick="showCalculator('cubeRootCalculator')">Cube Root Calculator</a></li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="main-content">
+      <div class="trys"></div>
+      <h1>Math and Algebra Calculators</h1>
+      <div class="trys"></div>
+      
+      <img id="introImage" src="cal.jpg" alt="Introductory Image">
+    
+      <!-- Complex Number Calculator -->
+      <div id="complexCalculator" class="calculator" style="display: none;">
+        <h2>Complex Number Calculator</h2>
+        <input type="number" id="real1" placeholder="Real part 1">
+        <input type="number" id="imaginary1" placeholder="Imaginary part 1">
+        <input type="number" id="real2" placeholder="Real part 2">
+        <input type="number" id="imaginary2" placeholder="Imaginary part 2">
+        <button onclick="calculateComplex()">Calculate</button>
+        <button onclick="clearButtonHandler('complexCalculator')">Clear</button>
+    
+        <div id="complexResult"></div>
+        <div id="realPart"></div>
+        <div id="imaginaryPart"></div>
+      </div>
+
+      <!-- Boolean Algebra Simplifier -->
+<div id="booleanSimplifier" class="calculator" style="display: none;">
+  <h2>Boolean Algebra Simplifier</h2>
+  <input type="text" id="booleanExpression" placeholder="Enter Boolean Expression (e.g., A * B + A')">
+  <button onclick="simplifyBoolean()">Simplify</button>
+  <button onclick="clearInputs('booleanSimplifier')">Clear</button>
+  <p id="simplifiedResult"></p>
+</div>
+<!-- Factorization Calculator -->
+<div id="factorizationCalculator" class="calculator" style="display: none;">
+  <h2>Factorization Calculator</h2>
+  <input type="number" id="factorInput" placeholder="Enter a number">
+  <button onclick="calculateFactors()">Factorize</button>
+  <button onclick="clearInputs('factorizationCalculator')">Clear</button>
+  <p id="factorResult"></p>
+</div>
+<!-- Exponential Formulas Calculator -->
+<div id="exponentialCalculator" class="calculator" style="display: none;">
+  <h2>Exponential Formulas Calculator</h2>
+  <input type="number" id="base" placeholder="Base (x)">
+  <input type="number" id="exponent" placeholder="Exponent (y)">
+  <button onclick="calculateExponential()">Calculate</button>
+  <button onclick="clearInputs('exponentialCalculator')">Clear</button>
+  <p id="exponentialResult"></p>
+</div>
+<!-- Cube Root Calculator -->
+<div id="cubeRootCalculator" class="calculator" style="display: none;">
+  <h2>Cube Root Calculator</h2>
+  <input type="number" id="cubeInput" placeholder="Enter a number">
+  <button onclick="calculateCubeRoot()">Calculate Cube Root</button>
+  <button onclick="clearInputs('cubeRootCalculator')">Clear</button>
+  <p id="cubeRootResult"></p>
+</div>
+
+
+
+    
+      <!-- Percentage Calculator -->
+      <div id="percentageCalculator" class="calculator" style="display: none;">
+        <h2>Percentage Calculator</h2>
+        <input type="number" id="originalValue" placeholder="Original Value">
+        <input type="number" id="percentage" placeholder="Percentage">
+        <button onclick="calculatePercentage()">Calculate</button>
+        <button onclick="clearInputs('percentageCalculator')">Clear</button>
+        <p id="percentageResult"></p>
+      </div>
+    
+     <!-- Cube Calculator -->
+      <div id="cubeCalculator" class="calculator" style="display: none;">
+        <h2>Cube Calculator</h2>
+        <input type="number" id="cubeIn" placeholder="Enter an integer">
+        <button onclick="calculateCube()">Calculate</button>
+        <button onclick="clearInputs('cubeCalculator')">Clear</button>
+        <p id="cubeResult"></p>
+      </div>
+
+    
+      <!-- Prime Factorization Calculator -->
+      <div id="factorCalculator" class="calculator" style="display: none;">
+        <h2>Prime Factorization Calculator</h2>
+        <input type="number" id="factorInput" placeholder="Enter a number">
+        <button onclick="showFactorCalculator()">Calculate</button>
+        <button onclick="clearInputs('factorCalculator')">Clear</button>
+        <p id="factorResult"></p>
+      </div>
+      <!-- Inequality Calculator -->
+      <div id="inequalityCalculator" class="calculator" style="display: none;">
+        <h2>Inequality Calculator</h2>
+        <input type="text" id="inequalityInput" placeholder="Enter inequality (e.g., x+2>5)">
+        <button onclick="showInequalityCalculator()">Calculate</button>
+        <button onclick="clearInputs('inequalityCalculator')">Clear</button>
+        <p id="inequalityResult"></p>
+      </div>
+
+      <!-- Flow Rate Calculator -->
+      <div id="flowRateCalculator" class="calculator" style="display: none;">
+        <h2>Flow Rate Calculator</h2>
+        <input type="number" id="pipeDiameter" placeholder="Pipe Diameter (m)">
+        <input type="number" id="velocity" placeholder="Velocity (m/s)">
+        <button onclick="showFlowRateCalculator()">Calculate</button>
+        <button onclick="clearInputs('flowRateCalculator')">Clear</button>
+        <p id="flowRateResult"></p>
+      </div>
+
+      <!-- Impulse Calculator -->
+      <div id="impulseCalculator" class="calculator" style="display: none;">
+        <h2>Impulse Calculator</h2>
+        <input type="number" id="force" placeholder="Force (N)">
+        <input type="number" id="time" placeholder="Time (s)">
+        <button onclick="showImpulseCalculator()">Calculate</button>
+        <button onclick="clearInputs('impulseCalculator')">Clear</button>
+        <p id="impulseResult"></p>
+      </div>
+
+      <!-- Partial Fraction Decomposer -->
+      <div id="partialFractionCalculator" class="calculator" style="display: none;">
+        <h2>Partial Fraction Decomposer</h2>
+        <input type="text" id="rationalFunction" placeholder="Enter Rational Function">
+        <button onclick="showPartialFractionCalculator()">Calculate</button>
+        <button onclick="clearInputs('partialFractionCalculator')">Clear</button>
+        <p id="partialFractionResult"></p>
+      </div>
+
+    </div>
+    </div>    
+
+  <script src="script.js"></script>
+  <script>
+    // Show the sidebar and hide the intro screen
+window.onload = function() {
+    setTimeout(function() {
+        document.getElementById('intro').style.display = 'none'; // Hide the intro image
+        document.getElementById('sidebar').style.display = 'block'; // Show sidebar
+    }, 2000); // Wait for 2 seconds before transitioning
+};
+
+// Function to hide the intro image
+function hideImage() {
+    const image = document.getElementById("introImage");
+    image.style.display = "none";
+}
+
+// Function to show specific calculators
+function showCalculator(calculatorId) {
+    // Hide all calculators
+    const calculators = document.querySelectorAll('.calculator');
+    calculators.forEach(calc => calc.style.display = 'none');
+
+    // Show the selected calculator
+    const selectedCalculator = document.getElementById(calculatorId);
+    selectedCalculator.style.display = 'block';
+    
+    hideImage();  // Hide the intro image when a calculator is shown
+}
+
+// Consolidated function to clear inputs and results
+function clearInputs(calculatorId) {
+    const calculator = document.getElementById(calculatorId);
+    const inputs = calculator.querySelectorAll('input');
+    const results = calculator.querySelectorAll('p, div');
+
+    // Clear inputs and results
+    inputs.forEach(input => input.value = '');
+    results.forEach(result => result.textContent = '');
+
+    if (calculatorId === 'inequalityCalculator') {
+        const inequalityInput = calculator.querySelector('#inequalityInput');
+        const inequalityResult = calculator.querySelector('#inequalityResult');
+        inequalityInput.value = '';
+        inequalityResult.textContent = '';
+    }
+}
+
+// Example of Calculate functions (you can expand these functions for each specific calculator)
+function calculateComplex() {
+    const real1 = parseFloat(document.getElementById('real1').value);
+    const imaginary1 = parseFloat(document.getElementById('imaginary1').value);
+    const real2 = parseFloat(document.getElementById('real2').value);
+    const imaginary2 = parseFloat(document.getElementById('imaginary2').value);
+
+    // Adding the real and imaginary parts
+    const realResult = real1 + real2;
+    const imaginaryResult = imaginary1 + imaginary2;
+
+    // Format the result in the form of a + bi or a - bi
+    let complexResult;
+    if (imaginaryResult < 0) {
+        complexResult = `${realResult} - ${Math.abs(imaginaryResult)}i`;
+    } else {
+        complexResult = `${realResult} + ${imaginaryResult}i`;
+    }
+
+    // Display the results
+    document.getElementById('complexResult').textContent = `Complex Number: ${complexResult}`;
+    document.getElementById('realPart').textContent = `Real: ${realResult}`;
+    document.getElementById('imaginaryPart').textContent = `Imaginary: ${imaginaryResult}`;
+}
+
+function calculatePercentage() {
+    const originalValue = parseFloat(document.getElementById('originalValue').value);
+    const percentage = parseFloat(document.getElementById('percentage').value);
+
+    const result = (originalValue * percentage) / 100;
+    document.getElementById('percentageResult').textContent = `Percentage: ${result}`;
+}
+
+function calculateCube() {
+    const number = parseInt(document.getElementById('cubeIn').value, 10);
+
+    // Check if the input is a valid number
+    if (isNaN(number)) {
+        document.getElementById('cubeResult').textContent = 'Please enter a valid integer';
+    } else {
+        const result = number ** 3;
+        document.getElementById('cubeResult').textContent = `Cube: ${result}`;
+    }
+}
+
+// Recursive function for calculating prime factors
+function recursivePrime(n, d) {
+    if (n <= 1) return [];
+    if (n == 2) return [2];  // 2 is the only even prime number
+    let factors = [];
+    let flag = false;
+    while (n % d == 0) {
+        factors.push(d);
+        n /= d;
+        flag = true;
+    }
+    if (flag) {
+        return factors.concat(recursivePrime(n, d + 1));
+    }
+    return recursivePrime(n, d + 1);
+}
+
+// Prime Factorization Calculator
+function calculateFactors() {
+    // Get the user input and convert it to an integer
+    const number = parseInt(document.getElementById("factorInput").value);
+
+    // Check if the input is a valid number and greater than 1
+    if (isNaN(number) || number < 2) {
+        document.getElementById("factorResult").textContent = "Please enter a valid number greater than 1.";
+        return;
+    }
+
+    // Call the recursive function to calculate prime factors
+    const factors = recursivePrime(number, 2);
+
+    // Display the result in the <p> element
+    if (factors.length > 0) {
+        document.getElementById("factorResult").textContent = `Prime factors: ${factors.join(", ")}`;
+    } else {
+        document.getElementById("factorResult").textContent = "No prime factors found.";
+    }
+}
+
+// Exponential formula calculation
+function calculateExponential() {
+    const base = parseFloat(document.getElementById('base').value);
+    const exponent = parseFloat(document.getElementById('exponent').value);
+
+    if (isNaN(base) || isNaN(exponent)) {
+        document.getElementById('exponentialResult').textContent = "Please enter valid numbers.";
+        return;
+    }
+
+    const result = Math.pow(base, exponent);
+    document.getElementById('exponentialResult').textContent = `Result: ${result}`;
+}
+
+// Cube root calculation
+function calculateCubeRoot() {
+    const number = parseFloat(document.getElementById('cubeInput').value);
+
+    if (isNaN(number)) {
+        document.getElementById('cubeRootResult').textContent = "Please enter a valid number.";
+        return;
+    }
+
+    const result = Math.cbrt(number);
+    document.getElementById('cubeRootResult').textContent = `Cube Root: ${result}`;
+}
+
+// Simplify the Boolean expression
+function simplifyBoolean() {
+    const expression = document.getElementById('booleanExpression').value.trim();
+    let simplifiedExpression = expression;
+
+    // Simplify the expression using basic Boolean rules
+    simplifiedExpression = applyBooleanLaws(simplifiedExpression);
+
+    // Display the simplified expression
+    document.getElementById('simplifiedResult').textContent = `Simplified Expression: ${simplifiedExpression}`;
+}
+
+// Function to apply Boolean simplifications
+function applyBooleanLaws(expression) {
+    // Apply the identity law (A + 0 = A, A * 1 = A)
+    expression = expression.replace(/\b(\w+)\s*\+\s*0\b/g, '$1');
+    expression = expression.replace(/\b(\w+)\s*\*\s*1\b/g, '$1');
+
+    // Apply the null law (A * 0 = 0, A + 1 = 1)
+    expression = expression.replace(/\b(\w+)\s*\*\s*0\b/g, '0');
+    expression = expression.replace(/\b(\w+)\s*\+\s*1\b/g, '1');
+
+    // Apply the complement law (A * A' = 0, A + A' = 1)
+    expression = expression.replace(/\b(\w+)\s*\*\s*\1'\b/g, '0');
+    expression = expression.replace(/\b(\w+)\s*\+\s*\1'\b/g, '1');
+
+    // Apply the idempotent law (A * A = A, A + A = A)
+    expression = expression.replace(/\b(\w+)\s*\*\s*\1\b/g, '$1');
+    expression = expression.replace(/\b(\w+)\s*\+\s*\1\b/g, '$1');
+
+    // Return the simplified expression
+    return expression;
+}
+
+// Flow Rate Calculator
+function showFlowRateCalculator() {
+    const pipeDiameter = parseFloat(document.getElementById('pipeDiameter').value);
+    const velocity = parseFloat(document.getElementById('velocity').value);
+  
+    if (isNaN(pipeDiameter) || isNaN(velocity)) {
+      alert("Please enter valid numbers");
+      return;
+    }
+  
+    const flowRate = Math.PI * Math.pow(pipeDiameter / 2, 2) * velocity; // Flow rate formula
+    document.getElementById('flowRateResult').textContent = `Flow Rate: ${flowRate} m³/s`;
+}
+
+// Impulse Calculator
+function showImpulseCalculator() {
+    const force = parseFloat(document.getElementById('force').value);
+    const time = parseFloat(document.getElementById('time').value);
+  
+    if (isNaN(force) || isNaN(time)) {
+      alert("Please enter valid numbers");
+      return;
+    }
+  
+    const impulse = force * time;
+    document.getElementById('impulseResult').textContent = `Impulse: ${impulse} N·s`;
+}
+
+// Function to solve inequality
+function showInequalityCalculator() {
+    const inequality = document.getElementById('inequalityInput').value.trim();
+
+    if (!inequality) {
+        alert("Please enter a valid inequality");
+        return;
+    }
+
+    // Regex to match inequalities of the form ax + b > c, ax + b < c, etc.
+    const regex = /^([+-]?\d*)x\s*([<>]=?)\s*(\d+)$/;
+    const match = inequality.match(regex);
+
+    if (match) {
+        let coefficient = match[1] === '' || match[1] === '+' ? 1 : (match[1] === '-' ? -1 : parseInt(match[1]));
+        const operator = match[2];
+        const constant = parseInt(match[3]);
+
+        let solution = '';
+
+        // Solve based on the operator
+        switch (operator) {
+            case '>':
+                solution = `x > ${(constant / coefficient).toFixed(2)}`;
+                break;
+            case '>=':
+                solution = `x >= ${(constant / coefficient).toFixed(2)}`;
+                break;
+            case '<':
+                solution = `x < ${(constant / coefficient).toFixed(2)}`;
+                break;
+            case '<=':
+                solution = `x <= ${(constant / coefficient).toFixed(2)}`;
+                break;
+            default:
+                solution = "Invalid inequality operator!";
+                break;
+        }
+
+        // Display the solution
+        document.getElementById('inequalityResult').textContent = `Solution: ${solution}`;
+    } else {
+        alert("Invalid inequality format! Please use a format like x+2>5.");
+    }
+}
+
+// Function to toggle sidebar visibility on small screens
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Event listener for the Enter key to calculate results and Delete key to clear inputs
+document.addEventListener('keydown', function(event) {
+    // Find the currently visible calculator
+    const visibleCalculator = document.querySelector('.calculator:not([style*="display: none"])');
+
+    if (visibleCalculator) {
+        const calculatorId = visibleCalculator.id;
+
+        if (event.key === 'Enter') {
+            // Trigger the appropriate calculate function based on the visible calculator
+            switch (calculatorId) {
+                case 'complexCalculator':
+                    calculateComplex();
+                    break;
+                case 'percentageCalculator':
+                    calculatePercentage();
+                    break;
+                case 'cubeCalculator':
+                    calculateCube();
+                    break;
+                case 'factorCalculator':
+                    calculateFactors();
+                    break;
+                case 'exponentialCalculator':
+                    calculateExponential();
+                    break;
+                case 'cubeRootCalculator':
+                    calculateCubeRoot();
+                    break;
+                case 'booleanCalculator':
+                    simplifyBoolean();
+                    break;
+                case 'partialFractionCalculator':
+                    showPartialFractionCalculator();
+                    break;
+                case 'impulseCalculator':
+                    showImpulseCalculator();
+                    break;
+                case 'flowRateCalculator':
+                    showFlowRateCalculator();
+                    break;
+                case 'inequalityCalculator':
+                    showInequalityCalculator();
+                    break;
+                default:
+                    console.log("No calculator selected.");
+            }
+        } 
+        else if (event.key === 'Delete') {
+            // Clear the inputs and results based on the visible calculator
+            clearInputs(calculatorId);
+        }
+    }
+});
+// Handling the Clear button click for each calculator
+function clearButtonHandler(calculatorId) {
+    clearInputs(calculatorId);
+}
+  </script>
+</body>
+</html>

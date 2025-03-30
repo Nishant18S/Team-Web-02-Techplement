@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Allin1Calculator Dashboard</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 24px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-links li {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background-color: #34495e;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: #333;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible grid with auto-resizing columns */
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        /* Make each calculator section responsive */
+        .calculator-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Take up full width within the grid container */
+            max-width: 500px; /* Limit the width of the section */
+            display: none;
+            min-height: 400px; /* Increase the height of the section */
+        }
+
+        .calculator-section.active {
+            display: block;
+        }
+
+        .calculator-section h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Input and Button Styling */
+        input,
+        select,
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
+            .sidebar.active {
+                width: 250px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* For Larger Screens: Full-width sections with proper spacing */
+        @media (min-width: 1200px) {
+            .calculator-container {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns layout on large screens */
+            }
+
+            .calculator-section {
+                max-width: 700px; /* Increase max-width on larger screens */
+                min-height: 500px; /* Increase minimum height for larger screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Conversion Calculators</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="javascript:void(0);" onclick="showSection('lengthConverter')">Length Converter</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('ageCalculator')">Age Calculator</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('timeConverter')">Time Converter</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('billTipCalculator')">Bill & Tip Calculator</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('gpaCalculator')">GPA Calculator</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('passwordGenerator')">Password Generator</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <button class="menu-toggle" onclick="toggleSidebar()">&#9776; Menu</button>
+        </header>
+
+        <div class="calculator-container">
+            <!-- Image Placeholder -->
+            <div id="imagePlaceholder" class="image-placeholder">
+                <img id="loadedImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfLnyMQOtsNdCD0YzYD_UNjhfnCHIQUfpa3a9Pv_1H0ySygwku4ynYSRxDhnq5F0SpNME&usqp=CAU" alt="Image will be loaded here" style=" display: none;">
+            </div>
+
+            <!-- Length Converter -->
+            <div id="lengthConverter" class="calculator-section">
+                <h2>Length Converter</h2>
+                <input type="number" id="lengthInput" placeholder="Enter length">
+                <select id="lengthUnitFrom">
+                    <option value="meters">Meters</option>
+                    <option value="feet">Feet</option>
+                </select>
+                <div style="text-align:center">to</div>
+                <select id="lengthUnitTo">
+                    <option value="feet">Feet</option>
+                    <option value="meters">Meters</option>
+                </select>
+                <button onclick="convertLength()">Convert</button>
+                <p id="lengthResult"></p>
+            </div>
+            <!-- Age Calculator -->
+            <div id="ageCalculator" class="calculator-section">
+                <h2>Age Calculator</h2>
+                <input type="date" id="birthDate">
+                <button onclick="calculateAge()">Calculate Age</button>
+                <p id="ageResult"></p>
+            </div>
+
+            <!-- Time Converter -->
+            <div id="timeConverter" class="calculator-section">
+                <h2>Hours to Minutes & Seconds</h2>
+                <input type="number" id="timeInput" placeholder="Enter hours">
+                <button onclick="convertTime()">Convert</button>
+                <p id="timeResult"></p>
+            </div>
+
+            <!-- Bill & Tip Calculator -->
+            <div id="billTipCalculator" class="calculator-section">
+                <h2>Bill & Tip Calculator</h2>
+                <input type="number" id="billAmount" placeholder="Bill Amount">
+                <input type="number" id="tipPercent" placeholder="Tip %">
+                <button onclick="calculateTip()">Calculate</button>
+                <p id="tipResult"></p>
+            </div>
+
+            <!-- GPA Calculator -->
+            <div id="gpaCalculator" class="calculator-section">
+                <h2>GPA Calculator</h2>
+                <input type="text" id="grades" placeholder="Grades (e.g., A,B,C)">
+                <input type="text" id="credits" placeholder="Credits (e.g., 3,4,2)">
+                <button onclick="calculateGPA()">Calculate GPA</button>
+                <p id="gpaResult"></p>
+            </div>
+
+            <!-- Password Generator -->
+            <div id="passwordGenerator" class="calculator-section">
+                <h2>Password Generator</h2>
+                <input type="number" id="passwordLength" placeholder="Password Length">
+                <button onclick="generatePassword()">Generate</button>
+                <p id="passwordResult"></p>
+            </div>
+
+            <!-- Other Calculator Sections -->
+            <!-- Similar to length converter, other sections will go here -->
+        </div>
+    </div>
+
+    <script>
+        function convertLength() {
+            const length = parseFloat(document.getElementById('lengthInput').value);
+            const from = document.getElementById('lengthUnitFrom').value;
+            const to = document.getElementById('lengthUnitTo').value;
+
+            let result;
+            if (from === 'meters' && to === 'feet') {
+                result = length * 3.28084; // Meters to feet conversion
+            } else if (from === 'feet' && to === 'meters') {
+                result = length / 3.28084; // Feet to meters conversion
+            }
+            document.getElementById('lengthResult').innerText = `Result: ${result} ${to}`;
+        }
+
+        function calculateAge() {
+            const birthdate = document.getElementById('birthDate').value;
+            const birthDateObj = new Date(birthdate);
+            const currentDate = new Date();
+            const age = currentDate.getFullYear() - birthDateObj.getFullYear();
+            document.getElementById('ageResult').innerText = `Age: ${age} years`;
+        }
+
+        function convertTime() {
+            const hours = parseFloat(document.getElementById('timeInput').value);
+            const minutes = hours * 60;
+            const seconds = minutes * 60;
+            document.getElementById('timeResult').innerText = `Result: ${minutes} minutes, ${seconds} seconds`;
+        }
+
+        function calculateTip() {
+            const bill = parseFloat(document.getElementById('billAmount').value);
+            const tip = parseFloat(document.getElementById('tipPercent').value);
+            const total = bill + (bill * (tip / 100));
+            document.getElementById('tipResult').innerText = `Total: $${total.toFixed(2)}`;
+        }
+
+        function calculateGPA() {
+            const gradesInput = document.getElementById('grades').value;
+            const creditsInput = document.getElementById('credits').value;
+
+            const grades = gradesInput.split(',').map(grade => grade.trim());
+            const credits = creditsInput.split(',').map(credit => parseInt(credit.trim()));
+
+            const gradePoints = { A: 4, B: 3, C: 2, D: 1, F: 0 };
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            for (let i = 0; i < grades.length; i++) {
+                totalPoints += gradePoints[grades[i]] * credits[i];
+                totalCredits += credits[i];
+            }
+
+            const gpa = totalPoints / totalCredits;
+            document.getElementById('gpaResult').innerText = `GPA: ${gpa.toFixed(2)}`;
+        }
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('passwordResult').innerText = `Generated Password: ${password}`;
+        }
+
+        // Toggle sidebar visibility
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Show the calculator section
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.calculator-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+
+            hideImage();
+        }
+
+        // Hide the image when switching sections
+        function hideImage() {
+            const loadedImage = document.getElementById('loadedImage');
+            loadedImage.style.display = 'none';
+        }
+
+        // Show the image on load
+window.onload = function () {
+    showImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfLnyMQOtsNdCD0YzYD_UNjhfnCHIQUfpa3a9Pv_1H0ySygwku4ynYSRxDhnq5F0SpNME&usqp=CAU'); // Example image URL
+};
+
+// Function to display image
+function showImage(imageUrl) {
+    const imagePlaceholder = document.getElementById('imagePlaceholder');
+    const loadedImage = document.getElementById('loadedImage');
+    loadedImage.src = imageUrl;
+    
+    // Set image to 100% width and auto height to maintain aspect ratio
+    loadedImage.style.display = 'block'; // Show image
+    loadedImage.style.width = '100%'; // Make image width 100% of its container
+    loadedImage.style.height = 'auto'; // Maintain the aspect ratio (height adjusts accordingly)
+}
+
+    </script>
+</body>
+
+</html>

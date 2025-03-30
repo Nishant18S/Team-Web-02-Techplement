@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Calculators</title>
+    <style>
+        /* General Page Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container for Main Layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #2c3e50; /* Sidebar background */
+    color: white;
+    width: 280px;
+    padding: 30px 20px;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+/* Sidebar Header */
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Sidebar Links */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.sidebar ul li a {
+    color: #ecf0f1;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+
+/* Expandable Menu */
+.expandable {
+    font-weight: bold;
+    color: #ecf0f1;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.expandable:hover {
+    color: #007bff;
+}
+
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.sub-menu.active {
+    display: block;
+}
+
+.sub-menu li {
+    background-color: #34495e;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.sub-menu li a {
+    color: #ecf0f1;
+    font-size: 14px;
+}
+
+.sub-menu li a:hover {
+    color: #007bff;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    margin-left: 280px; /* Ensure the content does not overlap the sidebar */
+    padding: 30px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: margin-left 0.3s ease;
+}
+
+.content h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+
+/* Calculator Card */
+.calculator-card {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    border: 3px solid #007bff;
+    transition: transform 0.3s ease-in-out;
+}
+
+.calculator-card:hover {
+    transform: translateY(-5px);
+}
+
+.calculator-card h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Input Fields */
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 48%;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.calculate-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.calculate-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+}
+
+/* Result Display */
+.result-text {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f0f9ff;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0056b3;
+    text-align: center;
+}
+
+/* ========================= */
+/* AUTH PAGES (Login/Register) */
+/* ========================= */
+
+/* Auth Page Styling */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4;
+}
+
+/* Auth Box */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-box {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-box h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 12px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.auth-box button:hover {
+    background: #0056b3;
+}
+
+.auth-box p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.auth-box a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.auth-box a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Geometry Calculators</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="sidebar">
+                <h2>Categories</h2>
+                <ul>
+                    <li onclick="loadCalculator('2d-distance')">📏 2D Distance</li>
+                    <li onclick="loadCalculator('3d-distance')">📏 3D Distance</li>
+                    <li onclick="loadCalculator('equilateral-triangle')">🔺 Equilateral Triangle</li>
+                    <li onclick="loadCalculator('isosceles-triangle')">🔺 Isosceles Triangle</li>
+                    <li onclick="loadCalculator('right-angled-triangle')">🔺 Right-Angled Triangle</li>
+                    <li onclick="loadCalculator('rectangle')">🔳 Rectangle</li>
+                    <li onclick="loadCalculator('square')">🔳 Square</li>
+                    <li onclick="loadCalculator('circle')">⚪ Circle</li>
+                    <li onclick="loadCalculator('sphere')">⚪ Sphere</li>
+                </ul>
+            </div>
+
+            <div class="content" id="calculator-content">
+                <h1>Select a Calculator from the left panel</h1>
+                <img id="loadedImage" src="https://cdn.pixabay.com/photo/2019/04/29/08/22/geometry-4165494_1280.jpg" alt="Image will be loaded here" style=" height: 600px; width: 600px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to load the calculator content dynamically
+        function loadCalculator(type) {
+            var contentDiv = document.getElementById('calculator-content');
+
+            // Clear the content area
+            contentDiv.innerHTML = '';
+
+            // Switch between different types of calculators and add content dynamically
+            switch(type) {
+                case '2d-distance':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>2D Distance Calculator</h2>
+                            <form id="2d-distance-form">
+                                <label for="x1">X1: </label><input type="number" id="x1" required><br>
+                                <label for="y1">Y1: </label><input type="number" id="y1" required><br>
+                                <label for="x2">X2: </label><input type="number" id="x2" required><br>
+                                <label for="y2">Y2: </label><input type="number" id="y2" required><br>
+                                <button type="button" onclick="calculateDistance()">Calculate</button>
+                            </form>
+                            <div id="2d-distance-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case '3d-distance':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>3D Distance Calculator</h2>
+                            <form id="3d-distance-form">
+                                <label for="x1">X1: </label><input type="number" id="x1-3d" required><br>
+                                <label for="y1">Y1: </label><input type="number" id="y1-3d" required><br>
+                                <label for="z1">Z1: </label><input type="number" id="z1" required><br>
+                                <label for="x2">X2: </label><input type="number" id="x2-3d" required><br>
+                                <label for="y2">Y2: </label><input type="number" id="y2-3d" required><br>
+                                <label for="z2">Z2: </label><input type="number" id="z2" required><br>
+                                <button type="button" onclick="calculate3DDistance()">Calculate</button>
+                            </form>
+                            <div id="3d-distance-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'equilateral-triangle':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Equilateral Triangle Area Calculator</h2>
+                            <form id="equilateral-triangle-form">
+                                <label for="side">Side Length: </label><input type="number" id="side" required><br>
+                                <button type="button" onclick="calculateTriangleArea()">Calculate Area</button>
+                            </form>
+                            <div id="triangle-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'isosceles-triangle':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Isosceles Triangle Area Calculator</h2>
+                            <form id="isosceles-triangle-form">
+                                <label for="base">Base Length: </label><input type="number" id="base" required><br>
+                                <label for="height">Height: </label><input type="number" id="height" required><br>
+                                <button type="button" onclick="calculateIsoscelesArea()">Calculate Area</button>
+                            </form>
+                            <div id="isosceles-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'right-angled-triangle':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Right-Angled Triangle Area Calculator</h2>
+                            <form id="right-angled-triangle-form">
+                                <label for="base">Base Length: </label><input type="number" id="right-base" required><br>
+                                <label for="height">Height: </label><input type="number" id="right-height" required><br>
+                                <button type="button" onclick="calculateRightAngleArea()">Calculate Area</button>
+                            </form>
+                            <div id="right-angle-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'rectangle':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Rectangle Area Calculator</h2>
+                            <form id="rectangle-form">
+                                <label for="length">Length: </label><input type="number" id="length" required><br>
+                                <label for="width">Width: </label><input type="number" id="width" required><br>
+                                <button type="button" onclick="calculateRectangleArea()">Calculate Area</button>
+                            </form>
+                            <div id="rectangle-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'square':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Square Area Calculator</h2>
+                            <form id="square-form">
+                                <label for="side">Side Length: </label><input type="number" id="square-side" required><br>
+                                <button type="button" onclick="calculateSquareArea()">Calculate Area</button>
+                            </form>
+                            <div id="square-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'circle':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Circle Area Calculator</h2>
+                            <form id="circle-form">
+                                <label for="radius">Radius: </label><input type="number" id="radius" required><br>
+                                <button type="button" onclick="calculateCircleArea()">Calculate Area</button>
+                            </form>
+                            <div id="circle-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                case 'sphere':
+                    contentDiv.innerHTML = `
+                        <div class="calculator-card">
+                            <h2>Sphere Volume Calculator</h2>
+                            <form id="sphere-form">
+                                <label for="radius">Radius: </label><input type="number" id="sphere-radius" required><br>
+                                <button type="button" onclick="calculateSphereVolume()">Calculate Volume</button>
+                            </form>
+                            <div id="sphere-result"></div>
+                        </div>
+                    `;
+                    break;
+
+                default:
+                    contentDiv.innerHTML = '<h1>Calculator not found!</h1>';
+                    break;
+            }
+        }
+
+        // 2D Distance Calculation
+        function calculateDistance() {
+            var x1 = parseFloat(document.getElementById('x1').value);
+            var y1 = parseFloat(document.getElementById('y1').value);
+            var x2 = parseFloat(document.getElementById('x2').value);
+            var y2 = parseFloat(document.getElementById('y2').value);
+            
+            var result = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            document.getElementById('2d-distance-result').innerText = "Distance: " + result.toFixed(2);
+        }
+
+        // 3D Distance Calculation
+        function calculate3DDistance() {
+            var x1 = parseFloat(document.getElementById('x1-3d').value);
+            var y1 = parseFloat(document.getElementById('y1-3d').value);
+            var z1 = parseFloat(document.getElementById('z1').value);
+            var x2 = parseFloat(document.getElementById('x2-3d').value);
+            var y2 = parseFloat(document.getElementById('y2-3d').value);
+            var z2 = parseFloat(document.getElementById('z2').value);
+            
+            var result = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
+            document.getElementById('3d-distance-result').innerText = "Distance: " + result.toFixed(2);
+        }
+
+        // Triangle Area Calculation
+        function calculateTriangleArea() {
+            var side = parseFloat(document.getElementById('side').value);
+            var area = (Math.sqrt(3) / 4) * Math.pow(side, 2);
+            document.getElementById('triangle-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Isosceles Triangle Area
+        function calculateIsoscelesArea() {
+            var base = parseFloat(document.getElementById('base').value);
+            var height = parseFloat(document.getElementById('height').value);
+            var area = (base * height) / 2;
+            document.getElementById('isosceles-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Right-Angled Triangle Area
+        function calculateRightAngleArea() {
+            var base = parseFloat(document.getElementById('right-base').value);
+            var height = parseFloat(document.getElementById('right-height').value);
+            var area = (base * height) / 2;
+            document.getElementById('right-angle-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Rectangle Area
+        function calculateRectangleArea() {
+            var length = parseFloat(document.getElementById('length').value);
+            var width = parseFloat(document.getElementById('width').value);
+            var area = length * width;
+            document.getElementById('rectangle-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Square Area
+        function calculateSquareArea() {
+            var side = parseFloat(document.getElementById('square-side').value);
+            var area = Math.pow(side, 2);
+            document.getElementById('square-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Circle Area
+        function calculateCircleArea() {
+            var radius = parseFloat(document.getElementById('radius').value);
+            var area = Math.PI * Math.pow(radius, 2);
+            document.getElementById('circle-result').innerText = "Area: " + area.toFixed(2);
+        }
+
+        // Sphere Volume
+        function calculateSphereVolume() {
+            var radius = parseFloat(document.getElementById('sphere-radius').value);
+            var volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
+            document.getElementById('sphere-result').innerText = "Volume: " + volume.toFixed(2);
+        }
+    </script>
+</body>
+</html>
