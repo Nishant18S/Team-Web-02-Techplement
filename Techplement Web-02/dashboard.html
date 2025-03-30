@@ -745,6 +745,22 @@ emailjs.init({
     text-decoration: none;
     color: inherit;
 }
+/* Logout Button */
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
 
 /* Existing card styles will still apply */
     </style>
@@ -759,8 +775,16 @@ emailjs.init({
             <a href="#categories">Categories</a>
             <a href="#about">About</a>
             <a href="#contact">Contact Us</a>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </nav>
+    <script>
+    function logout() {
+        if (confirm("Are you sure you want to logout?")) {
+            window.location.href = "logout.php"; // Redirect to logout script
+        }
+    }
+</script>
 
     <section id="home">
         <div class="headline">
